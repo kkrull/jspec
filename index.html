@@ -48,9 +48,13 @@
 <strong>Searchable</strong>: Finding call sites in Java code is easy.  Finding where a test calls your code should be just as easy.</li>
 <li>
 <strong>Transparent</strong>: You shouldn't have to keep any caveats in mind when writing test code.</li>
-</ul><p>There are many testing libraries out there with some of these characteristics, but expresiveness does not need to come at the cost of adding complexity.  For example you can write your tests in Ruby or Groovy (as the author once considered), but now you're adding more components between your test and production code, adding new dependencies, and losing out on searchability.</p>
+</ul><p>There are many testing libraries out there with some of these characteristics, but expresiveness does not need to come
+at the cost of adding complexity.  For example you can write your tests in Ruby or Groovy (as the author once
+considered), but now you're adding more components between your test and production code, adding new dependencies, and
+losing out on searchability.</p>
 
-<p>Lambdas are the weapon of choice for turning simple expressions into one-liners.  A test with one assertion can be 1 line instead of several for tagging and creating whole, new test method.</p>
+<p>Lambdas are the weapon of choice for turning simple expressions into one-liners.  A test with one assertion can be 1
+line instead of several for tagging and creating whole, new test method.</p>
 
 <h2>
 <a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
@@ -60,7 +64,6 @@
 <pre><code>&lt;dependency&gt;
   &lt;groupId&gt;info.javaspec&lt;/groupId&gt;
   &lt;artifactId&gt;javaspec&lt;/artifactId&gt;
-  &lt;version&gt;0.4.0&lt;/version&gt;
 &lt;/dependency&gt;
 </code></pre>
 
@@ -69,18 +72,19 @@
 <h1>
 <a name="getting-started" class="anchor" href="#getting-started"><span class="octicon octicon-link"></span></a>Getting started</h1>
 
-<p>There's no magic in how JavaSpec works.  This guide describes JavaSpec in terms of its similarities to popular
-libraries instead of pretending like these are radical, never-before-seen ideas.</p>
+<p>There's no magic in how JavaSpec works.  This guide describes JavaSpec in terms of its similarities to popular libraries
+instead of pretending like these are radical, never-before-seen ideas.</p>
 
 <h2>
 <a name="it-runs-on-junit" class="anchor" href="#it-runs-on-junit"><span class="octicon octicon-link"></span></a>It runs on JUnit</h2>
 
-<p>JUnit has you create a test class and put a bunch of <code>@Test</code> methods in it.  JavaSpec is pretty similar:</p>
+<p>In JUnit, you create a test class and put <code>@Test</code> methods in it.  JavaSpec is similar:</p>
 
 <ul>
 <li>Make a test class.</li>
 <li>Tag it with <code>@RunWith(JavaSpecRunner.class)</code>.</li>
-<li>Include 1 or more <code>It</code> fields in the class and assign a no-arg lambda to it.  This takes the place of what would normally be a <code>@Test</code> method in JUnit.</li>
+<li>Include 1 or more <code>It</code> fields in the class and assign a no-arg lambda to it.  Put whatever code you would normally run
+in the <code>@Test</code> method in this lambda.</li>
 <li>Run your tests anywhere you run JUnit.  Maven (surefire plugin) and Eclipse Luna work.</li>
 </ul><p>A simple "Hello World" test looks like this:</p>
 
@@ -93,7 +97,7 @@ libraries instead of pretending like these are radical, never-before-seen ideas.
 <p>As with JUnit, you get 1 instance of your test class per test.  Each <code>It</code> is its own test.</p>
 
 <h2>
-<a name="it-uses-lambdas-assigned-to-fields-like-machinespecifications" class="anchor" href="#it-uses-lambdas-assigned-to-fields-like-machinespecifications"><span class="octicon octicon-link"></span></a>It uses lambdas assigned to fields, like Machine.Specifications</h2>
+<a name="its-like-machinespecifications" class="anchor" href="#its-like-machinespecifications"><span class="octicon octicon-link"></span></a>It's like Machine.Specifications</h2>
 
 <p>Machine.Specifications and JavaSpec represent the different steps of a test the same way:</p>
 
@@ -103,9 +107,12 @@ libraries instead of pretending like these are radical, never-before-seen ideas.
 <li>An <code>It</code> lambda does the Assert part of your test.</li>
 <li>A <code>Cleanup</code> lambda - when present - always runs, even if a prior step failed.</li>
 <li>If any step throws an exception, the test fails.</li>
-</ul><p>You can think of <code>Establish</code> and <code>Because</code> as what a <code>@Before</code> method would do in JUnit.  These lambdas run before each <code>It</code> lambda in the same class (and also before <code>It</code> fields in inner classes).  <code>Cleanup</code> is like <code>@After</code> in JUnit, running after each <code>It</code> in the same test class.</p>
+</ul><p>You can think of <code>Establish</code> and <code>Because</code> as what a <code>@Before</code> method would do in JUnit.  These lambdas run before each
+<code>It</code> lambda in the same class (and also before <code>It</code> fields in inner classes).  <code>Cleanup</code> is like <code>@After</code> in JUnit,
+running after each <code>It</code> in the same test class.</p>
 
-<p>Unlike MSpec, your lambdas execute in an <em>instance</em> of the class in which they are declared.  Non-static helper methods in your test class are fair game to be called from any step.</p>
+<p>Unlike MSpec, your lambdas execute in an <em>instance</em> of the class in which they are declared.  Non-static helper methods
+in your test class are fair game to be called from any step.</p>
 
 <p>A JavaSpec test fixture looks like this:</p>
 
@@ -128,11 +135,16 @@ libraries instead of pretending like these are radical, never-before-seen ideas.
 </pre></div>
 
 <h2>
-<a name="it-has-hierarchical-fixtures-like-rspec" class="anchor" href="#it-has-hierarchical-fixtures-like-rspec"><span class="octicon octicon-link"></span></a>It has hierarchical fixtures, like RSpec</h2>
+<a name="its-like-rspec" class="anchor" href="#its-like-rspec"><span class="octicon octicon-link"></span></a>It's like RSpec</h2>
 
-<p>RSpec lets you organize hierarchies of tests and fixtures with <code>describe</code> and <code>context</code>, and each level in the tree can have its own <code>before</code> and <code>after</code> methods to work the test fixture.  JavaSpec provides nested contexts by nesting <em>context classes</em> (inner, <strong>non-static</strong> classes) in the top-level test class.</p>
+<p>RSpec lets you organize hierarchies of tests and fixtures with <code>describe</code> and <code>context</code>, and each level in the tree can
+have its own <code>before</code> and <code>after</code> methods to work the test fixture.  JavaSpec provides nested contexts by nesting
+<em>context classes</em> (inner, <strong>non-static</strong> classes) in the top-level test class.</p>
 
-<p>Each class can have as many <code>It</code> lambdas as you want, plus up to 1 of each type of fixture lambda (<code>Establish</code>, <code>Because</code>, and <code>Cleanup</code>) to build up the test fixture.  As with RSpec, setup runs outside-in (<code>Because</code> in an enclosing class runs before <code>Establish</code> or <code>Because</code> in the enclosed class), and cleanup runs inside-out.</p>
+<p>Each class can have as many <code>It</code> lambdas as you want, plus up to 1 of each type of fixture lambda (<code>Establish</code>,
+<code>Because</code>, and <code>Cleanup</code>) to build up the test fixture.  As with RSpec, setup runs outside-in and cleanup runs
+inside-out.  If you happen to have an <code>Because</code> in an outer class and an <code>Establish</code> in an inner class and wonder which
+one runs first, the outer class lambdas run first (i.e. <code>Because</code> runs first).</p>
 
 <p>An example of using nested contexts:</p>
 
@@ -169,8 +181,9 @@ libraries instead of pretending like these are radical, never-before-seen ideas.
 </ul><h2>
 <a name="if-you-have-any-other-questions" class="anchor" href="#if-you-have-any-other-questions"><span class="octicon octicon-link"></span></a>If you have any other questions</h2>
 
-<p>Hopefully JavaSpec works like you think it does, and you won't have to ask many detailed questions about how it really
-works.  For times when it doesn't, start by looking at the tests on <a href="https://github.com/kkrull/javaspec/blob/master/src/test/java/info/javaspec/runner/JavaSpecRunnerTest.java"><code>JavaSpecRunner</code></a> and related classes.</p>
+<p>Hopefully JavaSpec works like you think it does  For times when it doesn't, start by looking at the tests on
+<a href="https://github.com/kkrull/javaspec/blob/master/src/test/java/info/javaspec/runner/JavaSpecRunnerTest.java"><code>JavaSpecRunner</code></a>
+and related classes.</p>
 
 <h1>
 <a name="future-work" class="anchor" href="#future-work"><span class="octicon octicon-link"></span></a>Future work</h1>
@@ -178,7 +191,15 @@ works.  For times when it doesn't, start by looking at the tests on <a href="htt
 <ul>
 <li>JavaSpec can use strings to allow a more natural language for describing behavior.</li>
 <li>Something similar to RSpec's <code>shared_examples</code> and <code>shared_context</code> could be useful.</li>
-<li>Feel free to <a href="https://github.com/kkrull/javaspec/issues">add an issue in GitHub</a> if if JavaSpec's current behavior is not clear or could be improved.</li>
+<li>Feel free to <a href="https://github.com/kkrull/javaspec/issues">add an issue in GitHub</a> if if JavaSpec's current behavior is
+not clear or could be improved.</li>
+</ul><h1>
+<a name="release-history" class="anchor" href="#release-history"><span class="octicon octicon-link"></span></a>Release history</h1>
+
+<ul>
+<li>0.4.1: Fixed <a href="https://github.com/kkrull/javaspec/issues/1">Issue 1</a>, dealing with being able to instantiate non-public
+context classes.</li>
+<li>0.4.0: Initial release</li>
 </ul>
       </section>
     </div>
