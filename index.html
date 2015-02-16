@@ -32,7 +32,7 @@
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
         <h1>
-<a name="javaspec" class="anchor" href="#javaspec"><span class="octicon octicon-link"></span></a>JavaSpec</h1>
+<a id="javaspec" class="anchor" href="#javaspec" aria-hidden="true"><span class="octicon octicon-link"></span></a>JavaSpec</h1>
 
 <p>Spec-style testing for Java using lambdas.  Inspired by <a href="http://rspec.info">RSpec</a> and
 <a href="https://github.com/machine/machine.specifications">Machine.Specifications</a>.</p>
@@ -48,7 +48,9 @@
 <strong>Searchable</strong>: Finding call sites in Java code is easy.  Finding where a test calls your code should be just as easy.</li>
 <li>
 <strong>Transparent</strong>: You shouldn't have to keep any caveats in mind when writing test code.</li>
-</ul><p>There are many testing libraries out there with some of these characteristics, but expresiveness does not need to come
+</ul>
+
+<p>There are many testing libraries out there with some of these characteristics, but expresiveness does not need to come
 at the cost of adding complexity.  For example you can write your tests in Ruby or Groovy (as the author once
 considered), but now you're adding more components between your test and production code, adding new dependencies, and
 losing out on searchability.</p>
@@ -57,26 +59,27 @@ losing out on searchability.</p>
 line instead of several for tagging and creating whole, new test method.</p>
 
 <h2>
-<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
 
 <p>JavaSpec is located in the Maven Central Repository, under the following coordinates:</p>
 
 <pre><code>&lt;dependency&gt;
   &lt;groupId&gt;info.javaspec&lt;/groupId&gt;
   &lt;artifactId&gt;javaspec&lt;/artifactId&gt;
+  &lt;version&gt;0.4.2&lt;/version&gt;
 &lt;/dependency&gt;
 </code></pre>
 
 <p>It depends upon JUnit and Java 8+.</p>
 
 <h1>
-<a name="getting-started" class="anchor" href="#getting-started"><span class="octicon octicon-link"></span></a>Getting started</h1>
+<a id="getting-started" class="anchor" href="#getting-started" aria-hidden="true"><span class="octicon octicon-link"></span></a>Getting started</h1>
 
 <p>There's no magic in how JavaSpec works.  This guide describes JavaSpec in terms of its similarities to popular libraries
 instead of pretending like these are radical, never-before-seen ideas.</p>
 
 <h2>
-<a name="it-runs-on-junit" class="anchor" href="#it-runs-on-junit"><span class="octicon octicon-link"></span></a>It runs on JUnit</h2>
+<a id="it-runs-on-junit" class="anchor" href="#it-runs-on-junit" aria-hidden="true"><span class="octicon octicon-link"></span></a>It runs on JUnit</h2>
 
 <p>In JUnit, you create a test class and put <code>@Test</code> methods in it.  JavaSpec is similar:</p>
 
@@ -86,18 +89,19 @@ instead of pretending like these are radical, never-before-seen ideas.</p>
 <li>Include 1 or more <code>It</code> fields in the class and assign a no-arg lambda to it.  Put whatever code you would normally run
 in the <code>@Test</code> method in this lambda.</li>
 <li>Run your tests anywhere you run JUnit.  Maven (surefire plugin) and Eclipse Luna work.</li>
-</ul><p>A simple "Hello World" test looks like this:</p>
+</ul>
 
-<div class="highlight highlight-java"><pre><span class="nd">@RunWith</span><span class="o">(</span><span class="n">JavaSpecRunner</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
-<span class="kd">class</span> <span class="nc">GreeterTest</span> <span class="o">{</span>
-  <span class="n">It</span> <span class="n">says_hello</span> <span class="o">=</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">assertEquals</span><span class="o">(</span><span class="s">"Hello World!"</span><span class="o">,</span> <span class="k">new</span> <span class="nf">Greeter</span><span class="o">().</span><span class="na">sayHello</span><span class="o">());</span>
-<span class="o">}</span>
-</pre></div>
+<p>A simple "Hello World" test looks like this:</p>
+
+<div class="highlight highlight-java"><pre>@RunWith(<span class="pl-stj">JavaSpecRunner</span><span class="pl-k">.</span>class)
+<span class="pl-s">class</span> <span class="pl-en">GreeterTest</span> {
+  <span class="pl-stj">It</span> says_hello <span class="pl-k">=</span> () <span class="pl-k">-</span><span class="pl-k">&gt;</span> assertEquals(<span class="pl-s1"><span class="pl-pds">"</span>Hello World!<span class="pl-pds">"</span></span>, <span class="pl-k">new</span> <span class="pl-stj">Greeter</span>()<span class="pl-k">.</span>sayHello());
+}</pre></div>
 
 <p>As with JUnit, you get 1 instance of your test class per test.  Each <code>It</code> is its own test.</p>
 
 <h2>
-<a name="its-like-machinespecifications" class="anchor" href="#its-like-machinespecifications"><span class="octicon octicon-link"></span></a>It's like Machine.Specifications</h2>
+<a id="its-like-machinespecifications" class="anchor" href="#its-like-machinespecifications" aria-hidden="true"><span class="octicon octicon-link"></span></a>It's like Machine.Specifications</h2>
 
 <p>Machine.Specifications and JavaSpec represent the different steps of a test the same way:</p>
 
@@ -107,7 +111,9 @@ in the <code>@Test</code> method in this lambda.</li>
 <li>An <code>It</code> lambda does the Assert part of your test.</li>
 <li>A <code>Cleanup</code> lambda - when present - always runs, even if a prior step failed.</li>
 <li>If any step throws an exception, the test fails.</li>
-</ul><p>You can think of <code>Establish</code> and <code>Because</code> as what a <code>@Before</code> method would do in JUnit.  These lambdas run before each
+</ul>
+
+<p>You can think of <code>Establish</code> and <code>Because</code> as what a <code>@Before</code> method would do in JUnit.  These lambdas run before each
 <code>It</code> lambda in the same class (and also before <code>It</code> fields in inner classes).  <code>Cleanup</code> is like <code>@After</code> in JUnit,
 running after each <code>It</code> in the same test class.</p>
 
@@ -116,26 +122,25 @@ in your test class are fair game to be called from any step.</p>
 
 <p>A JavaSpec test fixture looks like this:</p>
 
-<div class="highlight highlight-java"><pre><span class="nd">@RunWith</span><span class="o">(</span><span class="n">JavaSpecRunner</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
-<span class="kd">class</span> <span class="nc">GreeterWithFixtureTest</span> <span class="o">{</span>
-  <span class="kd">private</span> <span class="kd">final</span> <span class="n">PrintStreamSpy</span> <span class="n">printStreamSpy</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">PrintStreamSpy</span><span class="o">();</span>
-  <span class="kd">private</span> <span class="n">Widget</span> <span class="n">subject</span><span class="o">;</span>
-  <span class="kd">private</span> <span class="n">String</span> <span class="n">returned</span><span class="o">;</span>
+<div class="highlight highlight-java"><pre>@RunWith(<span class="pl-stj">JavaSpecRunner</span><span class="pl-k">.</span>class)
+<span class="pl-s">class</span> <span class="pl-en">GreeterWithFixtureTest</span> {
+  <span class="pl-s">private</span> <span class="pl-s">final</span> <span class="pl-stj">PrintStreamSpy</span> printStreamSpy <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-stj">PrintStreamSpy</span>();
+  <span class="pl-s">private</span> <span class="pl-stj">Widget</span> subject;
+  <span class="pl-s">private</span> <span class="pl-stj">String</span> returned;
 
-  <span class="n">Establish</span> <span class="n">that</span> <span class="o">=</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">subject</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Widget</span><span class="o">(</span><span class="n">printStreamSpy</span><span class="o">);</span>
-  <span class="n">Because</span> <span class="n">of</span> <span class="o">=</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">returned</span> <span class="o">=</span> <span class="n">subject</span><span class="o">.</span><span class="na">foo</span><span class="o">();</span>
-  <span class="n">Cleanup</span> <span class="n">closeStreams</span> <span class="o">=</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="o">{</span>
-    <span class="k">if</span><span class="o">(</span><span class="n">subject</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
-      <span class="n">subject</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
-  <span class="o">};</span>
+  <span class="pl-stj">Establish</span> that <span class="pl-k">=</span> () <span class="pl-k">-</span><span class="pl-k">&gt;</span> subject <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-stj">Widget</span>(printStreamSpy);
+  <span class="pl-stj">Because</span> of <span class="pl-k">=</span> () <span class="pl-k">-</span><span class="pl-k">&gt;</span> returned <span class="pl-k">=</span> subject<span class="pl-k">.</span>foo();
+  <span class="pl-stj">Cleanup</span> closeStreams <span class="pl-k">=</span> () <span class="pl-k">-</span><span class="pl-k">&gt;</span> {
+    <span class="pl-k">if</span>(subject <span class="pl-k">!=</span> <span class="pl-c1">null</span>)
+      subject<span class="pl-k">.</span>close();
+  };
 
-  <span class="n">It</span> <span class="n">returns_bar</span> <span class="o">=</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">assertEquals</span><span class="o">(</span><span class="s">"bar"</span><span class="o">,</span> <span class="n">returned</span><span class="o">);</span>
-  <span class="n">It</span> <span class="n">prints_baz</span> <span class="o">=</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">assertEquals</span><span class="o">(</span><span class="s">"baz"</span><span class="o">,</span> <span class="n">printStreamSpy</span><span class="o">.</span><span class="na">getWhatWasPrinted</span><span class="o">());</span>
-<span class="o">}</span>
-</pre></div>
+  <span class="pl-stj">It</span> returns_bar <span class="pl-k">=</span> () <span class="pl-k">-</span><span class="pl-k">&gt;</span> assertEquals(<span class="pl-s1"><span class="pl-pds">"</span>bar<span class="pl-pds">"</span></span>, returned);
+  <span class="pl-stj">It</span> prints_baz <span class="pl-k">=</span> () <span class="pl-k">-</span><span class="pl-k">&gt;</span> assertEquals(<span class="pl-s1"><span class="pl-pds">"</span>baz<span class="pl-pds">"</span></span>, printStreamSpy<span class="pl-k">.</span>getWhatWasPrinted());
+}</pre></div>
 
 <h2>
-<a name="its-like-rspec" class="anchor" href="#its-like-rspec"><span class="octicon octicon-link"></span></a>It's like RSpec</h2>
+<a id="its-like-rspec" class="anchor" href="#its-like-rspec" aria-hidden="true"><span class="octicon octicon-link"></span></a>It's like RSpec</h2>
 
 <p>RSpec lets you organize hierarchies of tests and fixtures with <code>describe</code> and <code>context</code>, and each level in the tree can
 have its own <code>before</code> and <code>after</code> methods to work the test fixture.  JavaSpec provides nested contexts by nesting
@@ -148,28 +153,27 @@ one runs first, the outer class lambdas run first (i.e. <code>Because</code> run
 
 <p>An example of using nested contexts:</p>
 
-<div class="highlight highlight-java"><pre><span class="nd">@RunWith</span><span class="o">(</span><span class="n">JavaSpecRunner</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
-<span class="kd">class</span> <span class="nc">WidgetTest</span> <span class="o">{</span>
-  <span class="kd">private</span> <span class="n">Widget</span> <span class="n">subject</span><span class="o">;</span>
-  <span class="n">Establish</span> <span class="n">that</span> <span class="o">=</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">subject</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Widget</span><span class="o">();</span>
+<div class="highlight highlight-java"><pre>@RunWith(<span class="pl-stj">JavaSpecRunner</span><span class="pl-k">.</span>class)
+<span class="pl-s">class</span> <span class="pl-en">WidgetTest</span> {
+  <span class="pl-s">private</span> <span class="pl-stj">Widget</span> subject;
+  <span class="pl-stj">Establish</span> that <span class="pl-k">=</span> () <span class="pl-k">-</span><span class="pl-k">&gt;</span> subject <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-stj">Widget</span>();
 
-  <span class="kd">class</span> <span class="nc">foo</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">returned</span><span class="o">;</span>
-    <span class="n">Because</span> <span class="n">of</span> <span class="o">=</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">returned</span> <span class="o">=</span> <span class="n">subject</span><span class="o">.</span><span class="na">sayHello</span><span class="o">();</span>
-    <span class="n">It</span> <span class="n">says_hello</span> <span class="o">=</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">assertEquals</span><span class="o">(</span><span class="s">"Hello World!"</span><span class="o">,</span> <span class="n">returned</span><span class="o">);</span>
-  <span class="o">}</span>
+  <span class="pl-s">class</span> <span class="pl-en">foo</span> {
+    <span class="pl-s">private</span> <span class="pl-stj">String</span> returned;
+    <span class="pl-stj">Because</span> of <span class="pl-k">=</span> () <span class="pl-k">-</span><span class="pl-k">&gt;</span> returned <span class="pl-k">=</span> subject<span class="pl-k">.</span>sayHello();
+    <span class="pl-stj">It</span> says_hello <span class="pl-k">=</span> () <span class="pl-k">-</span><span class="pl-k">&gt;</span> assertEquals(<span class="pl-s1"><span class="pl-pds">"</span>Hello World!<span class="pl-pds">"</span></span>, returned);
+  }
 
-  <span class="kd">class</span> <span class="nc">bar</span> <span class="o">{</span>
-    <span class="kd">class</span> <span class="nc">givenAMultipleOf3</span> <span class="o">{</span>
-      <span class="n">It</span> <span class="n">prints_fizz</span> <span class="o">=</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">assertEquals</span><span class="o">(</span><span class="s">"fizz"</span><span class="o">,</span> <span class="n">subject</span><span class="o">.</span><span class="na">bar</span><span class="o">(</span><span class="mi">3</span><span class="o">));</span>
-    <span class="o">}</span>
+  <span class="pl-s">class</span> <span class="pl-en">bar</span> {
+    <span class="pl-s">class</span> <span class="pl-en">givenAMultipleOf3</span> {
+      <span class="pl-stj">It</span> prints_fizz <span class="pl-k">=</span> () <span class="pl-k">-</span><span class="pl-k">&gt;</span> assertEquals(<span class="pl-s1"><span class="pl-pds">"</span>fizz<span class="pl-pds">"</span></span>, subject<span class="pl-k">.</span>bar(<span class="pl-c1">3</span>));
+    }
 
-    <span class="kd">class</span> <span class="nc">givenAMultipleOf5</span> <span class="o">{</span>
-      <span class="n">It</span> <span class="n">prints_buzz</span> <span class="o">=</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">assertEquals</span><span class="o">(</span><span class="s">"buzz"</span><span class="o">,</span> <span class="n">subject</span><span class="o">.</span><span class="na">bar</span><span class="o">(</span><span class="mi">5</span><span class="o">));</span>
-    <span class="o">}</span>
-  <span class="o">}</span>
-<span class="o">}</span>
-</pre></div>
+    <span class="pl-s">class</span> <span class="pl-en">givenAMultipleOf5</span> {
+      <span class="pl-stj">It</span> prints_buzz <span class="pl-k">=</span> () <span class="pl-k">-</span><span class="pl-k">&gt;</span> assertEquals(<span class="pl-s1"><span class="pl-pds">"</span>buzz<span class="pl-pds">"</span></span>, subject<span class="pl-k">.</span>bar(<span class="pl-c1">5</span>));
+    }
+  }
+}</pre></div>
 
 <p>In short:</p>
 
@@ -178,25 +182,32 @@ one runs first, the outer class lambdas run first (i.e. <code>Because</code> run
 <li>Make as many contexts as you like by making nested, non-static classes.</li>
 <li>Add up to 1 each of <code>Establish</code>, <code>Because</code> and <code>Cleanup</code> to each context class.</li>
 <li>Make as many tests as you want in each context class with 0 or more <code>It</code> lambdas.</li>
-</ul><h2>
-<a name="if-you-have-any-other-questions" class="anchor" href="#if-you-have-any-other-questions"><span class="octicon octicon-link"></span></a>If you have any other questions</h2>
+</ul>
+
+<h2>
+<a id="if-you-have-any-other-questions" class="anchor" href="#if-you-have-any-other-questions" aria-hidden="true"><span class="octicon octicon-link"></span></a>If you have any other questions</h2>
 
 <p>Hopefully JavaSpec works like you think it does  For times when it doesn't, start by looking at the tests on
 <a href="https://github.com/kkrull/javaspec/blob/master/src/test/java/info/javaspec/runner/JavaSpecRunnerTest.java"><code>JavaSpecRunner</code></a>
 and related classes.</p>
 
 <h1>
-<a name="future-work" class="anchor" href="#future-work"><span class="octicon octicon-link"></span></a>Future work</h1>
+<a id="future-work" class="anchor" href="#future-work" aria-hidden="true"><span class="octicon octicon-link"></span></a>Future work</h1>
 
 <ul>
+<li>Ability to <code>@Ignore</code> a class or an <code>It</code>.  Better yet, <code>@Focus</code> on one, pesky test.</li>
 <li>JavaSpec can use strings to allow a more natural language for describing behavior.</li>
 <li>Something similar to RSpec's <code>shared_examples</code> and <code>shared_context</code> could be useful.</li>
 <li>Feel free to <a href="https://github.com/kkrull/javaspec/issues">add an issue in GitHub</a> if if JavaSpec's current behavior is
 not clear or could be improved.</li>
-</ul><h1>
-<a name="release-history" class="anchor" href="#release-history"><span class="octicon octicon-link"></span></a>Release history</h1>
+</ul>
+
+<h1>
+<a id="release-history" class="anchor" href="#release-history" aria-hidden="true"><span class="octicon octicon-link"></span></a>Release history</h1>
 
 <ul>
+<li>0.4.2: Fixed <a href="https://github.com/kkrull/javaspec/issues/2">Issue 2</a>, so that only one instance of a context class is
+created for each test.</li>
 <li>0.4.1: Fixed <a href="https://github.com/kkrull/javaspec/issues/1">Issue 1</a>, dealing with being able to instantiate non-public
 context classes.</li>
 <li>0.4.0: Initial release</li>
