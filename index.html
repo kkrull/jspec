@@ -93,9 +93,9 @@ in the <code>@Test</code> method in this lambda.</li>
 
 <p>A simple "Hello World" test looks like this:</p>
 
-<div class="highlight highlight-java"><pre>@RunWith(<span class="pl-stj">JavaSpecRunner</span><span class="pl-k">.</span>class)
-<span class="pl-s">class</span> <span class="pl-en">GreeterTest</span> {
-  <span class="pl-stj">It</span> says_hello <span class="pl-k">=</span> () <span class="pl-k">-</span><span class="pl-k">&gt;</span> assertEquals(<span class="pl-s1"><span class="pl-pds">"</span>Hello World!<span class="pl-pds">"</span></span>, <span class="pl-k">new</span> <span class="pl-stj">Greeter</span>()<span class="pl-k">.</span>sayHello());
+<div class="highlight highlight-java"><pre>@RunWith(<span class="pl-smi">JavaSpecRunner</span><span class="pl-k">.</span>class)
+<span class="pl-k">class</span> <span class="pl-en">GreeterTest</span> {
+  <span class="pl-smi">It</span> says_hello <span class="pl-k">=</span> () <span class="pl-k">-</span><span class="pl-k">&gt;</span> assertEquals(<span class="pl-s"><span class="pl-pds">"</span>Hello World!<span class="pl-pds">"</span></span>, <span class="pl-k">new</span> <span class="pl-smi">Greeter</span>()<span class="pl-k">.</span>sayHello());
 }</pre></div>
 
 <p>As with JUnit, you get 1 instance of your test class per test.  Each <code>It</code> is its own test.</p>
@@ -122,21 +122,21 @@ in your test class are fair game to be called from any step.</p>
 
 <p>A JavaSpec test fixture looks like this:</p>
 
-<div class="highlight highlight-java"><pre>@RunWith(<span class="pl-stj">JavaSpecRunner</span><span class="pl-k">.</span>class)
-<span class="pl-s">class</span> <span class="pl-en">GreeterWithFixtureTest</span> {
-  <span class="pl-s">private</span> <span class="pl-s">final</span> <span class="pl-stj">PrintStreamSpy</span> printStreamSpy <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-stj">PrintStreamSpy</span>();
-  <span class="pl-s">private</span> <span class="pl-stj">Widget</span> subject;
-  <span class="pl-s">private</span> <span class="pl-stj">String</span> returned;
+<div class="highlight highlight-java"><pre>@RunWith(<span class="pl-smi">JavaSpecRunner</span><span class="pl-k">.</span>class)
+<span class="pl-k">class</span> <span class="pl-en">GreeterWithFixtureTest</span> {
+  <span class="pl-k">private</span> <span class="pl-k">final</span> <span class="pl-smi">PrintStreamSpy</span> printStreamSpy <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">PrintStreamSpy</span>();
+  <span class="pl-k">private</span> <span class="pl-smi">Widget</span> subject;
+  <span class="pl-k">private</span> <span class="pl-smi">String</span> returned;
 
-  <span class="pl-stj">Establish</span> that <span class="pl-k">=</span> () <span class="pl-k">-</span><span class="pl-k">&gt;</span> subject <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-stj">Widget</span>(printStreamSpy);
-  <span class="pl-stj">Because</span> of <span class="pl-k">=</span> () <span class="pl-k">-</span><span class="pl-k">&gt;</span> returned <span class="pl-k">=</span> subject<span class="pl-k">.</span>foo();
-  <span class="pl-stj">Cleanup</span> closeStreams <span class="pl-k">=</span> () <span class="pl-k">-</span><span class="pl-k">&gt;</span> {
+  <span class="pl-smi">Establish</span> that <span class="pl-k">=</span> () <span class="pl-k">-</span><span class="pl-k">&gt;</span> subject <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Widget</span>(printStreamSpy);
+  <span class="pl-smi">Because</span> of <span class="pl-k">=</span> () <span class="pl-k">-</span><span class="pl-k">&gt;</span> returned <span class="pl-k">=</span> subject<span class="pl-k">.</span>foo();
+  <span class="pl-smi">Cleanup</span> closeStreams <span class="pl-k">=</span> () <span class="pl-k">-</span><span class="pl-k">&gt;</span> {
     <span class="pl-k">if</span>(subject <span class="pl-k">!=</span> <span class="pl-c1">null</span>)
       subject<span class="pl-k">.</span>close();
   };
 
-  <span class="pl-stj">It</span> returns_bar <span class="pl-k">=</span> () <span class="pl-k">-</span><span class="pl-k">&gt;</span> assertEquals(<span class="pl-s1"><span class="pl-pds">"</span>bar<span class="pl-pds">"</span></span>, returned);
-  <span class="pl-stj">It</span> prints_baz <span class="pl-k">=</span> () <span class="pl-k">-</span><span class="pl-k">&gt;</span> assertEquals(<span class="pl-s1"><span class="pl-pds">"</span>baz<span class="pl-pds">"</span></span>, printStreamSpy<span class="pl-k">.</span>getWhatWasPrinted());
+  <span class="pl-smi">It</span> returns_bar <span class="pl-k">=</span> () <span class="pl-k">-</span><span class="pl-k">&gt;</span> assertEquals(<span class="pl-s"><span class="pl-pds">"</span>bar<span class="pl-pds">"</span></span>, returned);
+  <span class="pl-smi">It</span> prints_baz <span class="pl-k">=</span> () <span class="pl-k">-</span><span class="pl-k">&gt;</span> assertEquals(<span class="pl-s"><span class="pl-pds">"</span>baz<span class="pl-pds">"</span></span>, printStreamSpy<span class="pl-k">.</span>getWhatWasPrinted());
 }</pre></div>
 
 <h2>
@@ -153,24 +153,24 @@ one runs first, the outer class lambdas run first (i.e. <code>Because</code> run
 
 <p>An example of using nested contexts:</p>
 
-<div class="highlight highlight-java"><pre>@RunWith(<span class="pl-stj">JavaSpecRunner</span><span class="pl-k">.</span>class)
-<span class="pl-s">class</span> <span class="pl-en">WidgetTest</span> {
-  <span class="pl-s">private</span> <span class="pl-stj">Widget</span> subject;
-  <span class="pl-stj">Establish</span> that <span class="pl-k">=</span> () <span class="pl-k">-</span><span class="pl-k">&gt;</span> subject <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-stj">Widget</span>();
+<div class="highlight highlight-java"><pre>@RunWith(<span class="pl-smi">JavaSpecRunner</span><span class="pl-k">.</span>class)
+<span class="pl-k">class</span> <span class="pl-en">WidgetTest</span> {
+  <span class="pl-k">private</span> <span class="pl-smi">Widget</span> subject;
+  <span class="pl-smi">Establish</span> that <span class="pl-k">=</span> () <span class="pl-k">-</span><span class="pl-k">&gt;</span> subject <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Widget</span>();
 
-  <span class="pl-s">class</span> <span class="pl-en">foo</span> {
-    <span class="pl-s">private</span> <span class="pl-stj">String</span> returned;
-    <span class="pl-stj">Because</span> of <span class="pl-k">=</span> () <span class="pl-k">-</span><span class="pl-k">&gt;</span> returned <span class="pl-k">=</span> subject<span class="pl-k">.</span>sayHello();
-    <span class="pl-stj">It</span> says_hello <span class="pl-k">=</span> () <span class="pl-k">-</span><span class="pl-k">&gt;</span> assertEquals(<span class="pl-s1"><span class="pl-pds">"</span>Hello World!<span class="pl-pds">"</span></span>, returned);
+  <span class="pl-k">class</span> <span class="pl-en">foo</span> {
+    <span class="pl-k">private</span> <span class="pl-smi">String</span> returned;
+    <span class="pl-smi">Because</span> of <span class="pl-k">=</span> () <span class="pl-k">-</span><span class="pl-k">&gt;</span> returned <span class="pl-k">=</span> subject<span class="pl-k">.</span>sayHello();
+    <span class="pl-smi">It</span> says_hello <span class="pl-k">=</span> () <span class="pl-k">-</span><span class="pl-k">&gt;</span> assertEquals(<span class="pl-s"><span class="pl-pds">"</span>Hello World!<span class="pl-pds">"</span></span>, returned);
   }
 
-  <span class="pl-s">class</span> <span class="pl-en">bar</span> {
-    <span class="pl-s">class</span> <span class="pl-en">givenAMultipleOf3</span> {
-      <span class="pl-stj">It</span> prints_fizz <span class="pl-k">=</span> () <span class="pl-k">-</span><span class="pl-k">&gt;</span> assertEquals(<span class="pl-s1"><span class="pl-pds">"</span>fizz<span class="pl-pds">"</span></span>, subject<span class="pl-k">.</span>bar(<span class="pl-c1">3</span>));
+  <span class="pl-k">class</span> <span class="pl-en">bar</span> {
+    <span class="pl-k">class</span> <span class="pl-en">givenAMultipleOf3</span> {
+      <span class="pl-smi">It</span> prints_fizz <span class="pl-k">=</span> () <span class="pl-k">-</span><span class="pl-k">&gt;</span> assertEquals(<span class="pl-s"><span class="pl-pds">"</span>fizz<span class="pl-pds">"</span></span>, subject<span class="pl-k">.</span>bar(<span class="pl-c1">3</span>));
     }
 
-    <span class="pl-s">class</span> <span class="pl-en">givenAMultipleOf5</span> {
-      <span class="pl-stj">It</span> prints_buzz <span class="pl-k">=</span> () <span class="pl-k">-</span><span class="pl-k">&gt;</span> assertEquals(<span class="pl-s1"><span class="pl-pds">"</span>buzz<span class="pl-pds">"</span></span>, subject<span class="pl-k">.</span>bar(<span class="pl-c1">5</span>));
+    <span class="pl-k">class</span> <span class="pl-en">givenAMultipleOf5</span> {
+      <span class="pl-smi">It</span> prints_buzz <span class="pl-k">=</span> () <span class="pl-k">-</span><span class="pl-k">&gt;</span> assertEquals(<span class="pl-s"><span class="pl-pds">"</span>buzz<span class="pl-pds">"</span></span>, subject<span class="pl-k">.</span>bar(<span class="pl-c1">5</span>));
     }
   }
 }</pre></div>
@@ -219,7 +219,7 @@ context classes.</li>
     <div id="footer_wrap" class="outer">
       <footer class="inner">
         <p class="copyright">Javaspec maintained by <a href="https://github.com/kkrull">kkrull</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
       </footer>
     </div>
 
