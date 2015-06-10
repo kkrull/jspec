@@ -66,7 +66,7 @@ line instead of several for tagging and creating whole, new test method.</p>
 <pre><code>&lt;dependency&gt;
   &lt;groupId&gt;info.javaspec&lt;/groupId&gt;
   &lt;artifactId&gt;javaspec&lt;/artifactId&gt;
-  &lt;version&gt;0.4.2&lt;/version&gt;
+  &lt;version&gt;0.5&lt;/version&gt;
 &lt;/dependency&gt;
 </code></pre>
 
@@ -206,6 +206,8 @@ not clear or could be improved.</li>
 <a id="release-history" class="anchor" href="#release-history" aria-hidden="true"><span class="octicon octicon-link"></span></a>Release history</h1>
 
 <ul>
+<li>0.5: Fixed an issue where specs with the same field / context class name were showing up as still running in IntelliJ.
+Also renamed JUnit test display names to human-readable names, replacing snake case underscores with spaces.</li>
 <li>0.4.2: Fixed <a href="https://github.com/kkrull/javaspec/issues/2">Issue 2</a>, so that only one instance of a context class is
 created for each test.</li>
 <li>0.4.1: Fixed <a href="https://github.com/kkrull/javaspec/issues/1">Issue 1</a>, dealing with being able to instantiate non-public
