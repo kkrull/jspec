@@ -65,8 +65,8 @@ line instead of several for tagging and creating whole, new test method.</p>
 
 <pre><code>&lt;dependency&gt;
   &lt;groupId&gt;info.javaspec&lt;/groupId&gt;
-  &lt;artifactId&gt;javaspec&lt;/artifactId&gt;
-  &lt;version&gt;0.5&lt;/version&gt;
+  &lt;artifactId&gt;javaspec-runner&lt;/artifactId&gt;
+  &lt;version&gt;1.0&lt;/version&gt;
 &lt;/dependency&gt;
 </code></pre>
 
@@ -100,6 +100,10 @@ in the <code>@Test</code> method in this lambda.</li>
 
 <p>As with JUnit, you get 1 instance of your test class per test.  Each <code>It</code> is its own test.</p>
 
+<p>Finally, note that the <code>It</code> field is named <code>says_hello</code> instead of the conventional <code>saysHello</code>.  This is done so that
+JavaSpec can convert that verb phrase into a human readable form by replacing underscores with spaces.  When you run
+this test, JUnit will report results for <code>says hello</code>.</p>
+
 <h2>
 <a id="its-like-machinespecifications" class="anchor" href="#its-like-machinespecifications" aria-hidden="true"><span class="octicon octicon-link"></span></a>It's like Machine.Specifications</h2>
 
@@ -130,7 +134,7 @@ in your test class are fair game to be called from any step.</p>
 
   <span class="pl-smi">Establish</span> that <span class="pl-k">=</span> () <span class="pl-k">-</span><span class="pl-k">&gt;</span> subject <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Widget</span>(printStreamSpy);
   <span class="pl-smi">Because</span> of <span class="pl-k">=</span> () <span class="pl-k">-</span><span class="pl-k">&gt;</span> returned <span class="pl-k">=</span> subject<span class="pl-k">.</span>foo();
-  <span class="pl-smi">Cleanup</span> closeStreams <span class="pl-k">=</span> () <span class="pl-k">-</span><span class="pl-k">&gt;</span> {
+  <span class="pl-smi">Cleanup</span> close_streams <span class="pl-k">=</span> () <span class="pl-k">-</span><span class="pl-k">&gt;</span> {
     <span class="pl-k">if</span>(subject <span class="pl-k">!=</span> <span class="pl-c1">null</span>)
       subject<span class="pl-k">.</span>close();
   };
@@ -165,11 +169,11 @@ one runs first, the outer class lambdas run first (i.e. <code>Because</code> run
   }
 
   <span class="pl-k">class</span> <span class="pl-en">bar</span> {
-    <span class="pl-k">class</span> <span class="pl-en">givenAMultipleOf3</span> {
+    <span class="pl-k">class</span> <span class="pl-en">given_a_multiple_of_3</span> {
       <span class="pl-smi">It</span> prints_fizz <span class="pl-k">=</span> () <span class="pl-k">-</span><span class="pl-k">&gt;</span> assertEquals(<span class="pl-s"><span class="pl-pds">"</span>fizz<span class="pl-pds">"</span></span>, subject<span class="pl-k">.</span>bar(<span class="pl-c1">3</span>));
     }
 
-    <span class="pl-k">class</span> <span class="pl-en">givenAMultipleOf5</span> {
+    <span class="pl-k">class</span> <span class="pl-en">given_a_multiple_of_5</span> {
       <span class="pl-smi">It</span> prints_buzz <span class="pl-k">=</span> () <span class="pl-k">-</span><span class="pl-k">&gt;</span> assertEquals(<span class="pl-s"><span class="pl-pds">"</span>buzz<span class="pl-pds">"</span></span>, subject<span class="pl-k">.</span>bar(<span class="pl-c1">5</span>));
     }
   }
@@ -181,31 +185,35 @@ one runs first, the outer class lambdas run first (i.e. <code>Because</code> run
 <li>Only tag the outer-most class with <code>@RunWith(JavaSpecRunner.class)</code>.  Don't tag any inner classes with this.</li>
 <li>Make as many contexts as you like by making nested, non-static classes.</li>
 <li>Add up to 1 each of <code>Establish</code>, <code>Because</code> and <code>Cleanup</code> to each context class.</li>
-<li>Make as many tests as you want in each context class with 0 or more <code>It</code> lambdas.</li>
+<li>Make as many tests as you want in each context class with <code>It</code> lambdas.</li>
 </ul>
 
 <h2>
 <a id="if-you-have-any-other-questions" class="anchor" href="#if-you-have-any-other-questions" aria-hidden="true"><span class="octicon octicon-link"></span></a>If you have any other questions</h2>
 
-<p>Hopefully JavaSpec works like you think it does  For times when it doesn't, start by looking at the tests on
+<p>Hopefully JavaSpec works like you think it does.</p>
+
+<p>For times when it doesn't, start by looking at the tests on
 <a href="https://github.com/kkrull/javaspec/blob/master/src/test/java/info/javaspec/runner/JavaSpecRunnerTest.java"><code>JavaSpecRunner</code></a>
 and related classes.</p>
+
+<p>If that still doesn't do the trick, feel <a href="https://github.com/kkrull/javaspec/issues">post an issue</a> or submit a pull
+request with any suggested modifications.</p>
 
 <h1>
 <a id="future-work" class="anchor" href="#future-work" aria-hidden="true"><span class="octicon octicon-link"></span></a>Future work</h1>
 
 <ul>
 <li>Ability to <code>@Ignore</code> a class or an <code>It</code>.  Better yet, <code>@Focus</code> on one, pesky test.</li>
-<li>JavaSpec can use strings to allow a more natural language for describing behavior.</li>
+<li>Use strings instead of identifiers to allow a more natural language for describing behavior.</li>
 <li>Something similar to RSpec's <code>shared_examples</code> and <code>shared_context</code> could be useful.</li>
-<li>Feel free to <a href="https://github.com/kkrull/javaspec/issues">add an issue in GitHub</a> if if JavaSpec's current behavior is
-not clear or could be improved.</li>
 </ul>
 
 <h1>
 <a id="release-history" class="anchor" href="#release-history" aria-hidden="true"><span class="octicon octicon-link"></span></a>Release history</h1>
 
 <ul>
+<li>1.0: Full release.  Renamed artifact to <code>info.javaspec::javaspec-runner</code>.</li>
 <li>0.5: Fixed an issue where specs with the same field / context class name were showing up as still running in IntelliJ.
 Also renamed JUnit test display names to human-readable names, replacing snake case underscores with spaces.</li>
 <li>0.4.2: Fixed <a href="https://github.com/kkrull/javaspec/issues/2">Issue 2</a>, so that only one instance of a context class is
