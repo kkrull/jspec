@@ -34,8 +34,22 @@
         <h1>
 <a id="javaspec" class="anchor" href="#javaspec" aria-hidden="true"><span class="octicon octicon-link"></span></a>JavaSpec</h1>
 
-<p>Spec-style testing for Java using lambdas.  Inspired by <a href="http://rspec.info">RSpec</a> and
+<p>Behavior-Driven Development testing for Java using lambdas.  Inspired by <a href="http://rspec.info">RSpec</a> and
 <a href="https://github.com/machine/machine.specifications">Machine.Specifications</a>.</p>
+
+<p>Build status</p>
+
+<ul>
+<li>
+<code>master</code> <a href="https://travis-ci.org/kkrull/javaspec"><img src="https://travis-ci.org/kkrull/javaspec.svg?branch=master" alt="Build Status"></a>
+</li>
+<li>
+<code>develop</code> <a href="https://travis-ci.org/kkrull/javaspec"><img src="https://travis-ci.org/kkrull/javaspec.svg?branch=develop" alt="Build Status"></a>
+</li>
+</ul>
+
+<h2>
+<a id="why" class="anchor" href="#why" aria-hidden="true"><span class="octicon octicon-link"></span></a>Why</h2>
 
 <p><em>Why create another testing framework for Java, and why use lambdas?</em></p>
 
@@ -93,7 +107,7 @@ in the <code>@Test</code> method in this lambda.</li>
 
 <p>A simple "Hello World" test looks like this:</p>
 
-<div class="highlight highlight-java"><pre>@RunWith(<span class="pl-smi">JavaSpecRunner</span><span class="pl-k">.</span>class)
+<div class="highlight highlight-source-java"><pre>@RunWith(<span class="pl-smi">JavaSpecRunner</span><span class="pl-k">.</span>class)
 <span class="pl-k">class</span> <span class="pl-en">GreeterTest</span> {
   <span class="pl-smi">It</span> says_hello <span class="pl-k">=</span> () <span class="pl-k">-</span><span class="pl-k">&gt;</span> assertEquals(<span class="pl-s"><span class="pl-pds">"</span>Hello World!<span class="pl-pds">"</span></span>, <span class="pl-k">new</span> <span class="pl-smi">Greeter</span>()<span class="pl-k">.</span>sayHello());
 }</pre></div>
@@ -126,7 +140,7 @@ in your test class are fair game to be called from any step.</p>
 
 <p>A JavaSpec test fixture looks like this:</p>
 
-<div class="highlight highlight-java"><pre>@RunWith(<span class="pl-smi">JavaSpecRunner</span><span class="pl-k">.</span>class)
+<div class="highlight highlight-source-java"><pre>@RunWith(<span class="pl-smi">JavaSpecRunner</span><span class="pl-k">.</span>class)
 <span class="pl-k">class</span> <span class="pl-en">GreeterWithFixtureTest</span> {
   <span class="pl-k">private</span> <span class="pl-k">final</span> <span class="pl-smi">PrintStreamSpy</span> printStreamSpy <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">PrintStreamSpy</span>();
   <span class="pl-k">private</span> <span class="pl-smi">Widget</span> subject;
@@ -157,7 +171,7 @@ one runs first, the outer class lambdas run first (i.e. <code>Because</code> run
 
 <p>An example of using nested contexts:</p>
 
-<div class="highlight highlight-java"><pre>@RunWith(<span class="pl-smi">JavaSpecRunner</span><span class="pl-k">.</span>class)
+<div class="highlight highlight-source-java"><pre>@RunWith(<span class="pl-smi">JavaSpecRunner</span><span class="pl-k">.</span>class)
 <span class="pl-k">class</span> <span class="pl-en">WidgetTest</span> {
   <span class="pl-k">private</span> <span class="pl-smi">Widget</span> subject;
   <span class="pl-smi">Establish</span> that <span class="pl-k">=</span> () <span class="pl-k">-</span><span class="pl-k">&gt;</span> subject <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Widget</span>();
