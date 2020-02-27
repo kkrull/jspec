@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="lambda-api [main]">
-    <CLASSES>
-      <root url="file://$PROJECT_DIR$/../lambdas-and-strings/lambda-api/build/classes/java/main" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

@@ -16,9 +16,12 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Parameters(commandDescription = "Run specs", separators = "=")
 public final class RunParameters implements MultiCommandParser.JCommanderParameters {
@@ -41,12 +44,12 @@ public final class RunParameters implements MultiCommandParser.JCommanderParamet
   private String reporterName = "plaintext";
 
   @Parameter(
-    converter = PathToFileUrl.class,
     description = "The classpath from which to load spec classes: either a directory of .class files or a .jar file.",
+    listConverter = PathToFileUrl.class,
     names = "--spec-classpath",
     required = true
   )
-  private URL _specClassPath;
+  private List<URL> _specClassPath;
 
   @Parameter
   private List<String> _specClassNames;
@@ -74,24 +77,41 @@ public final class RunParameters implements MultiCommandParser.JCommanderParamet
       .orElse(Collections.emptyList());
   }
 
-  private URL specClassPath() {
-    return this._specClassPath;
+  private List<URL> specClassPath() {
+    List<URL> specClassPath = this._specClassPath;
+//    System.out.printf("[specClassPath] <%s>%n", specClassPath);
+    return specClassPath;
   }
 
-  public static final class PathToFileUrl extends BaseConverter<URL> {
+  public static final class PathToFileUrl extends BaseConverter<List<URL>> {
     public PathToFileUrl() {
       super("--spec-classpath");
     }
 
     @Override
-    public URL convert(String pathToFileOrDirectory) {
-      if(pathToFileOrDirectory.isEmpty()) {
+    public List<URL> convert(String pathToFilesOrDirectories) {
+//      System.out.printf("given <%s>%n", pathToFilesOrDirectories);
+      if(pathToFilesOrDirectories.isEmpty()) {
         throw new ParameterException(String.format("%s: path may not be empty, but was <%s>",
           this.getOptionName(),
-          pathToFileOrDirectory)
+          pathToFilesOrDirectories)
         );
       }
 
+      String[] entries = pathToFilesOrDirectories.split(":");
+      List<URL> urls = new ArrayList<>(entries.length);
+      for(int i = 0; i < entries.length; i++) {
+        URL url = convertEntry(entries[i]);
+        urls.add(url);
+      }
+
+//      System.out.printf("%d entries%n", urls.size());
+//      urls.forEach(url -> System.out.printf("- %s%n", url));
+//      System.out.printf("--> <%s>%n", urls);
+      return urls;
+    }
+
+    public URL convertEntry(String pathToFileOrDirectory) {
       URI uri = new File(pathToFileOrDirectory).toURI();
       try {
         return uri.toURL();
