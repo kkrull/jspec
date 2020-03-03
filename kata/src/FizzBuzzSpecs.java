@@ -1,5 +1,3 @@
-import org.hamcrest.Matchers;
-
 import static info.javaspec.lang.lambda.FunctionalDsl.describe;
 import static info.javaspec.lang.lambda.FunctionalDsl.it;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -18,7 +16,7 @@ public class FizzBuzzSpecs {
 
   public static class FizzBuzz {
     public static String encode(int number) {
-      return null;
+      return "1";
     }
   }
 }
