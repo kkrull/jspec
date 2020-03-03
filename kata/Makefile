@@ -1,23 +1,24 @@
 JC = javac
 MAVENREPO = $(HOME)/.m2/repository
 
-JOUT = out/production/kata
-JCCLASSPATH = ../lambdas-and-strings/lambda-api/build/libs/lambda-api-2.0.0-SNAPSHOT.jar:$(MAVENREPO)/org/hamcrest/hamcrest/2.2/hamcrest-2.2.jar
+SPECCLASSDIR = out/production/kata
+COMPILECLASSPATH = ../lambdas-and-strings/lambda-api/build/libs/lambda-api-2.0.0-SNAPSHOT.jar:$(MAVENREPO)/org/hamcrest/hamcrest/2.2/hamcrest-2.2.jar
 JFLAGS = \
-  -d $(JOUT) \
-	-cp $(JCCLASSPATH)
+  -d $(SPECCLASSDIR) \
+	-cp $(COMPILECLASSPATH)
 
 RUNFLAGS = \
 	--reporter=plaintext \
-	--spec-classpath=$(MAVENREPO)/org/hamcrest/hamcrest/2.2/hamcrest-2.2.jar:$(JOUT)
+	--spec-classpath=$(SPECCLASSDIR):$(MAVENREPO)/org/hamcrest/hamcrest/2.2/hamcrest-2.2.jar
 
-default: $(JOUT)/FizzBuzzSpecs.class run
+#Exclude nested class targets, which causes re-compile
+default: $(SPECCLASSDIR)/FizzBuzzSpecs.class run
 
 clean:
 	rm -Rf out
 
-$(JOUT)/FizzBuzzSpecs.class $(JOUT)/FizzBuzzSpecs$FizzBuzz.class &: src/FizzBuzzSpecs.java
-	mkdir -p $(JOUT)
+$(SPECCLASSDIR)/FizzBuzzSpecs.class $(SPECCLASSDIR)/FizzBuzzSpecs$FizzBuzz.class &: src/FizzBuzzSpecs.java
+	mkdir -p $(SPECCLASSDIR)
 	$(JC) $(JFLAGS) src/FizzBuzzSpecs.java
 
 run:
