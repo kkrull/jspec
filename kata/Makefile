@@ -1,20 +1,23 @@
 JC = javac
-JCCLASSPATH = ../lambdas-and-strings/lambda-api/build/libs/lambda-api-2.0.0-SNAPSHOT.jar:/Users/kkrull/.m2/repository/org/hamcrest/hamcrest/2.2/hamcrest-2.2.jar
+MAVENREPO = $(HOME)/.m2/repository
+
+JOUT = out/production/kata
+JCCLASSPATH = ../lambdas-and-strings/lambda-api/build/libs/lambda-api-2.0.0-SNAPSHOT.jar:$(MAVENREPO)/org/hamcrest/hamcrest/2.2/hamcrest-2.2.jar
 JFLAGS = \
-  -d out/production/kata \
+  -d $(JOUT) \
 	-cp $(JCCLASSPATH)
 
 RUNFLAGS = \
 	--reporter=plaintext \
-	--spec-classpath=/Users/kkrull/.m2/repository/org/hamcrest/hamcrest/2.2/hamcrest-2.2.jar:out/production/kata
+	--spec-classpath=$(MAVENREPO)/org/hamcrest/hamcrest/2.2/hamcrest-2.2.jar:$(JOUT)
 
-default: out/production/kata/FizzBuzzSpecs.class run
+default: $(JOUT)/FizzBuzzSpecs.class run
 
 clean:
 	rm -Rf out
 
-out/production/kata/FizzBuzzSpecs.class out/production/kata/out/production/kata/FizzBuzzSpecs$FizzBuzz.class &: src/FizzBuzzSpecs.java
-	mkdir -p out/production/kata
+$(JOUT)/FizzBuzzSpecs.class $(JOUT)/FizzBuzzSpecs$FizzBuzz.class &: src/FizzBuzzSpecs.java
+	mkdir -p $(JOUT)
 	$(JC) $(JFLAGS) src/FizzBuzzSpecs.java
 
 run:
