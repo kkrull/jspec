@@ -8,7 +8,11 @@ clean:
 
 out/production/kata/FizzBuzzSpecs.class: src/FizzBuzzSpecs.java
 	mkdir -p out/production/kata
-	$(JCC) $(JFLAGS) src/FizzBuzzSpecs.java 
+	$(JCC) $(JFLAGS) src/FizzBuzzSpecs.java
+
+out/production/kata/out/production/kata/FizzBuzzSpecs$FizzBuzz.class: src/FizzBuzzSpecs.java
+	mkdir -p out/production/kata
+	$(JCC) $(JFLAGS) src/FizzBuzzSpecs.java
 
 run:
 	javaspec run --reporter=plaintext --spec-classpath=/Users/kkrull/.m2/repository/org/hamcrest/hamcrest/2.2/hamcrest-2.2.jar:out/production/kata FizzBuzzSpecs
