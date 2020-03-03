@@ -21,6 +21,7 @@ RUN_FLAGS = \
 #Exclude nested class targets, which causes re-compile
 default: $(SPEC_CLASS_DIR)/FizzBuzzSpecs.class run
 
+.PHONY: clean
 clean:
 	rm -Rf out
 
@@ -28,5 +29,6 @@ $(SPEC_CLASS_DIR)/FizzBuzzSpecs.class $(SPEC_CLASS_DIR)/FizzBuzzSpecs$FizzBuzz.c
 	mkdir -p $(SPEC_CLASS_DIR)
 	$(JAVAC) $(JAVAC_FLAGS) src/FizzBuzzSpecs.java
 
+.PHONY: run
 run:
 	javaspec run $(RUN_FLAGS) FizzBuzzSpecs
