@@ -7,9 +7,9 @@ public class FizzBuzzSpecs {
   {
     describe("FizzBuzz", () -> {
       describe("#encode", () -> {
-        it("translates 1 as-is", () -> {
-          assertThat(FizzBuzz.encode(1), equalTo("1"));
-        });
+        it("translates 1 as-is", () -> assertThat(FizzBuzz.encode(1), equalTo("1")));
+
+        it("translates 2 as-is", () -> assertThat(FizzBuzz.encode(2), equalTo("2")));
       });
     });
   }
