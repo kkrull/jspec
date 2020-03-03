@@ -10,13 +10,18 @@ public class FizzBuzzSpecs {
         it("translates 1 as-is", () -> assertThat(FizzBuzz.encode(1), equalTo("1")));
 
         it("translates 2 as-is", () -> assertThat(FizzBuzz.encode(2), equalTo("2")));
+
+        it("translates 3 to 'fizz'", () -> assertThat(FizzBuzz.encode(3), equalTo("fizz")));
       });
     });
   }
 
   public static class FizzBuzz {
     public static String encode(int number) {
-      return "1";
+      if(number == 3)
+        return "fizz";
+      
+      return String.valueOf(number);
     }
   }
 }
