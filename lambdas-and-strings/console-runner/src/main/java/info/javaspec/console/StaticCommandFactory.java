@@ -20,14 +20,9 @@ public class StaticCommandFactory implements CommandFactory {
 
   @Override
   public Command runSpecsCommand(RunObserver observer, List<URL> specClassPath, List<String> classNames) {
-//    System.out.println();
-//    System.out.printf("specClassPath: <%s>%n", specClassPath);
-//    for(int i = 0; i < specClassPath.size(); i++) {
-//      URL entry = specClassPath.get(i);
-//      System.out.printf("- %s [%s]%n", entry, entry.getClass());
-//    }
-
-    ClassLoader specClassLoader = new URLClassLoader(specClassPath.toArray(new URL[0]));
+    URL[] urls = specClassPath.toArray(new URL[0]);
+    System.out.printf("[StaticCommandFactory] urls: %s%n", Arrays.toString(urls));
+    ClassLoader specClassLoader = new URLClassLoader(urls);
     return new RunSpecsCommand(
       new FunctionalDslFactory(specClassLoader, classNames),
       observer

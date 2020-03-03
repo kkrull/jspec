@@ -20,6 +20,7 @@ public final class RunSpecsCommand implements Command {
     try {
       rootCollection = this.factory.declareSpecs();
     } catch(Exception e) {
+      e.printStackTrace();
       return Result.failure(2, e);
     }
 
