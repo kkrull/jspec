@@ -8,3 +8,9 @@ $ make clean
 $ make
 $ make run
 ```
+
+Invoke compile+test automatically when source files change:
+
+```
+$ ./watch.sh
+```
