@@ -26,7 +26,7 @@ clean:
 	rm -Rf out
 
 $(SPEC_CLASS_DIR)/FizzBuzzSpecs.class $(SPEC_CLASS_DIR)/FizzBuzzSpecs$FizzBuzz.class &: src/FizzBuzzSpecs.java
-	mkdir -p $(SPEC_CLASS_DIR)
+	@mkdir -p $(SPEC_CLASS_DIR)
 	$(JAVAC) $(JAVAC_FLAGS) src/FizzBuzzSpecs.java
 
 .PHONY: run
