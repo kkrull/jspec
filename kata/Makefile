@@ -32,3 +32,7 @@ $(SPEC_CLASS_DIR)/FizzBuzzSpecs.class $(SPEC_CLASS_DIR)/FizzBuzzSpecs$FizzBuzz.c
 .PHONY: run
 run:
 	javaspec run $(RUN_FLAGS) FizzBuzzSpecs
+
+.PHONY: watch
+watch:
+	./watch.sh
