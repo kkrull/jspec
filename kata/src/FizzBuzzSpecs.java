@@ -12,6 +12,8 @@ public class FizzBuzzSpecs {
         it("translates 2 as-is", () -> assertThat(FizzBuzz.encode(2), equalTo("2")));
 
         it("translates 3 to 'fizz'", () -> assertThat(FizzBuzz.encode(3), equalTo("fizz")));
+
+        it("translates 5 to 'buzz'", () -> assertThat(FizzBuzz.encode(5), equalTo("buzz")));
       });
     });
   }
