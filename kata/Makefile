@@ -19,7 +19,6 @@ RUN_FLAGS = \
 	--reporter=plaintext \
 	--spec-classpath=$(subst : ,:,$(RUN_JARS))
 
-#Exclude nested class targets, which causes re-compile
 default: $(SPEC_CLASS_DIR)/FizzBuzz.class $(SPEC_CLASS_DIR)/FizzBuzzSpecs.class run
 
 .PHONY: clean
