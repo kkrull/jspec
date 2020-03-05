@@ -3,6 +3,7 @@ MAVEN_REPO = $(HOME)/.m2/repository
 
 SPEC_CLASS_DIR = out/production/kata
 COMPILE_JARS = \
+	src/: \
 	../lambdas-and-strings/lambda-api/build/libs/lambda-api-2.0.0-SNAPSHOT.jar: \
 	$(MAVEN_REPO)/org/hamcrest/hamcrest/2.2/hamcrest-2.2.jar
 
@@ -19,13 +20,17 @@ RUN_FLAGS = \
 	--spec-classpath=$(subst : ,:,$(RUN_JARS))
 
 #Exclude nested class targets, which causes re-compile
-default: $(SPEC_CLASS_DIR)/FizzBuzzSpecs.class run
+default: $(SPEC_CLASS_DIR)/FizzBuzz.class $(SPEC_CLASS_DIR)/FizzBuzzSpecs.class run
 
 .PHONY: clean
 clean:
 	rm -Rf out
 
-$(SPEC_CLASS_DIR)/FizzBuzzSpecs.class $(SPEC_CLASS_DIR)/FizzBuzzSpecs$FizzBuzz.class &: src/FizzBuzzSpecs.java
+$(SPEC_CLASS_DIR)/FizzBuzz.class: src/FizzBuzz.java
+	@mkdir -p $(SPEC_CLASS_DIR)
+	$(JAVAC) $(JAVAC_FLAGS) src/FizzBuzz.java
+
+$(SPEC_CLASS_DIR)/FizzBuzzSpecs.class: src/FizzBuzzSpecs.java
 	@mkdir -p $(SPEC_CLASS_DIR)
 	$(JAVAC) $(JAVAC_FLAGS) src/FizzBuzzSpecs.java
 
@@ -34,5 +39,5 @@ run:
 	javaspec run $(RUN_FLAGS) FizzBuzzSpecs
 
 .PHONY: watch
-watch:
-	fswatch -0 src/FizzBuzzSpecs.java | xargs -0 -n1 -I{} make
+watch:default
+	fswatch -0 src | xargs -0 -n1 -I{} make
