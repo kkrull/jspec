@@ -4,6 +4,8 @@ public class FizzBuzz {
       return "fizz";
     else if(number == 5)
       return "buzz";
+    else if(number == 15)
+      return "fizzbuzz";
 
     return String.valueOf(number);
   }
