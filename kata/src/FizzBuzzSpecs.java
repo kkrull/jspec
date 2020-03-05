@@ -7,21 +7,25 @@ public class FizzBuzzSpecs {
   {
     describe("FizzBuzz", () -> {
       describe("::encode", () -> {
-        it("translates 1 as-is", () -> assertThat(FizzBuzz.encode(1), equalTo("1")));
+        it("translates multiples of 3 to 'fizz'", () -> {
+          assertThat(FizzBuzz.encode(3), equalTo("fizz"));
+          assertThat(FizzBuzz.encode(6), equalTo("fizz"));
+        });
 
-        it("translates 2 as-is", () -> assertThat(FizzBuzz.encode(2), equalTo("2")));
+        it("translates multiples of 5 to 'buzz'", () -> {
+          assertThat(FizzBuzz.encode(5), equalTo("buzz"));
+          assertThat(FizzBuzz.encode(10), equalTo("buzz"));
+        });
 
-        it("translates 3 to 'fizz'", () -> assertThat(FizzBuzz.encode(3), equalTo("fizz")));
+        it("translates multiples of both 3 and 5 to 'fizzbuzz'", () -> {
+          assertThat(FizzBuzz.encode(15), equalTo("fizzbuzz"));
+          assertThat(FizzBuzz.encode(30), equalTo("fizzbuzz"));
+        });
 
-        it("translates 5 to 'buzz'", () -> assertThat(FizzBuzz.encode(5), equalTo("buzz")));
-        
-        it("translates 6 to 'fizz'", () -> assertThat(FizzBuzz.encode(6), equalTo("fizz")));
-
-        it("translates 10 to 'buzz'", () -> assertThat(FizzBuzz.encode(10), equalTo("buzz")));
-
-        it("translates 15 to 'fizzbuzz'", () -> assertThat(FizzBuzz.encode(15), equalTo("fizzbuzz")));
-
-        it("translates 30 to 'fizzbuzz'", () -> assertThat(FizzBuzz.encode(30), equalTo("fizzbuzz")));
+        it("translates other numbers as-is", () -> {
+          assertThat(FizzBuzz.encode(1), equalTo("1"));
+          assertThat(FizzBuzz.encode(2), equalTo("2"));
+        });
       });
     });
   }
