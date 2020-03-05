@@ -35,4 +35,4 @@ run:
 
 .PHONY: watch
 watch:
-	fswatch -0 src/FizzBuzzSpecs.java | xargs -0 -n1 -I {} make
+	fswatch -0 src/FizzBuzzSpecs.java | xargs -0 -n1 -I{} make
