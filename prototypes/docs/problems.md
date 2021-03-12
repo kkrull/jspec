@@ -127,9 +127,17 @@ is on the `subject` train.
 ## Interface with `jupiter-engine`
 ### How to get `junit-jupiter-engine` to ask JavaSpec for `DynamicNodes` (tests and containers)
 
-* [ ] Tag the factory method with `@TestFactory`
-* [ ] Tag the test/spec class with an extension: Is there an extension for test factories?
+* [x] Tag the factory method with `@TestFactory`
+* [ ] _work here_ Tag the test/spec class with an extension: Is there an extension for test factories?
 * [ ] Call a Jupiter registration method?  Does it need to be tagged with something else?
+
+A spec class can have full, programmatic access to JavaSpec by declaring a `@TestFactory` instance method that uses
+JavaSpec to return 1 or more `DynamicNode` objects back to JUnit.  This works, and it's fairly simple to understand. 
+However, it also involves non-trivial repetition for each spec file.
+
+Can a spec class be [tagged with a JUnit extension][junit-registering-extensions] instead of declaring a factory method, to reduce repetition?
+
+[junit-registering-extensions]: https://junit.org/junit5/docs/current/user-guide/#extensions-registration
 
 
 ### How to represent specs, as Jupiter tests
