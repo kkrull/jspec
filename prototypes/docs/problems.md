@@ -125,17 +125,28 @@ is on the `subject` train.
 
 ----
 ## Interface with `jupiter-engine`
-### How to get `junit-jupiter-engine` to ask JavaSpec for `DynamicNodes` (tests and containers)
+### 3 - How to get Jupiter Engine to ask JavaSpec for tests and containers
 
 * [x] Tag the factory method with `@TestFactory`
-* [ ] _work here_ Tag the test/spec class with an extension: Is there an extension for test factories?
+* [ ] _work here_ Tag the test/spec class with an extension: Is there an extension for test
+  factories?
 * [ ] Call a Jupiter registration method?  Does it need to be tagged with something else?
 
-A spec class can have full, programmatic access to JavaSpec by declaring a `@TestFactory` instance method that uses
-JavaSpec to return 1 or more `DynamicNode` objects back to JUnit.  This works, and it's fairly simple to understand. 
-However, it also involves non-trivial repetition for each spec file.
+A spec class can have full, programmatic access to JavaSpec by declaring a `@TestFactory` instance
+method that uses JavaSpec to return 1 or more `DynamicNode` objects back to JUnit.  This works, and
+it's fairly simple to understand. However, it also involves non-trivial repetition for each spec
+file.
 
-Can a spec class be [tagged with a JUnit extension][junit-registering-extensions] instead of declaring a factory method, to reduce repetition?
+Can a spec class be [tagged with a JUnit extension][junit-registering-extensions] instead of
+declaring a factory method, to reduce repetition? So far, it appears that that extension only makes
+a single instance of the test class for each `@Test`.  It doesn't provide a means to generate
+multiple test instances, in a single call from a single entry point.
+
+Repeated or parameterized tests may be a way to (awkwardly) generate a test instance for each spec,
+by repeating the same JUnit test (template) method for each spec (i.e. each invocation is nothing
+like the last).
+
+Then again, doesn't `@TestFactory` do what I want?  Can we just stop there?
 
 [junit-registering-extensions]: https://junit.org/junit5/docs/current/user-guide/#extensions-registration
 
